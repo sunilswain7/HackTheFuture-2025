@@ -222,7 +222,7 @@ export default function Home(){
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
             <Shield className="text-blue-400 mr-3" size={40} />
-            <h1 className="text-4xl font-bold text-white">SecureVault AI</h1>
+            <h1 className="text-4xl font-bold text-white">AI Enabled Redaction</h1>
           </div>
           <p className="text-xl text-gray-300">
             The Ultimate Privacy Preservation Platform
