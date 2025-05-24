@@ -3,7 +3,7 @@ from pdf2image import convert_from_path
 from PIL import Image, ImageDraw
 import numpy as np
 
-MODEL_PATH = "data/dataset/runs/detect/train/weights/best.pt"
+MODEL_PATH = "models/best.pt"
 
 def pdf_to_images(pdf_path):
     return convert_from_path(pdf_path)
@@ -41,6 +41,6 @@ def redact_pdf(input_pdf_path, output_pdf_path):
     print(f"Redacted PDF saved to: {output_pdf_path}")
 
 if __name__ == "__main__":
-    input_pdf = "data/test7.pdf"
-    output_pdf = "data/output_pdfs/redacted_output7.pdf"
+    input_pdf = "data/test1.pdf"
+    output_pdf = "data/op1.pdf"
     redact_pdf(input_pdf, output_pdf)

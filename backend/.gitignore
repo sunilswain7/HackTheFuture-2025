@@ -1,14 +1,13 @@
+# Virtual environments
 env/
 venv/
 yolovenv/
-*.pdf
-*.png
-# Python virtual environment
-venv/
+
+# Python cache
 *.pyc
 __pycache__/
 
-# PDF and image files
+# PDF and image files (outputs or tests)
 *.pdf
 *.png
 *.jpg
@@ -16,15 +15,14 @@ __pycache__/
 *.gif
 *.bmp
 
+
 # Dataset directories and generated data
-/data/
 /data/*
+!/data/runs/           # Keep the YOLO run results (model weights)
+/data/runs/*
 !/data/**/*.yaml
 !/data/**/*.txt
 !/data/**/*.md
-
-# YOLO model weights
-*.pt
 
 # Any .save or temporary files
 *.save
@@ -34,14 +32,12 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# VS Code settings (if you use VS Code)
+# IDE settings
 .vscode/
+.idea/
 
 # Mac/Linux swap/backup files
 *~
 *.swp
 *.swo
 *.bak
-
-# PyCharm project settings (if you use PyCharm)
-.idea/
