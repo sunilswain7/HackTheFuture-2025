@@ -2,3 +2,45 @@ venv/
 yolovenv/
 *.pdf
 *.png
+# Python virtual environment
+venv/
+*.pyc
+__pycache__/
+
+# PDF and image files
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+
+# Dataset directories and generated data
+/data/
+/data/*
+!/data/**/*.yaml
+!/data/**/*.txt
+!/data/**/*.md
+
+# YOLO model weights
+*.pt
+
+# Any .save or temporary files
+*.save
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# VS Code settings (if you use VS Code)
+.vscode/
+
+# Mac/Linux swap/backup files
+*~
+*.swp
+*.swo
+*.bak
+
+# PyCharm project settings (if you use PyCharm)
+.idea/
