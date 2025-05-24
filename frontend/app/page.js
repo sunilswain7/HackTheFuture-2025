@@ -21,46 +21,33 @@ export default function RedactionDashboard() {
   const fileInputRef = useRef(null);
   const [activeTab, setActiveTab] = useState("upload");
   const [processing, setProcessing] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState(null);
+  const [message, setMessage] = useState("");
 
-  const uploadFileAndDownload = async (file) => {
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
     setProcessing(true);
+    setMessage("");
 
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:8000/api/redact", {
+      const response = await fetch("http://localhost:5000/upload", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
-      }
-
-      const blob = await response.blob();
-
-      // Create temporary link to trigger file download
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "redacted_output.pdf";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Upload error:", error);
-      alert("Failed to process file. Please try again.");
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Upload failed");
+      setMessage(`✅ Success: ${data.message}`);
+      setDownloadUrl(data.download_url);
+    } catch (err) {
+      setMessage(`❌ Error: ${err.message}`);
     } finally {
       setProcessing(false);
-    }
-  };
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      uploadFileAndDownload(file);
     }
   };
 
@@ -115,7 +102,7 @@ export default function RedactionDashboard() {
           ))}
         </div>
 
-        <div className="bg-white justify-self-center w-[60vw] rounded-2xl shadow-2xl p-8 min-h-[300px]">
+        <div className="bg-white justify-self-center w-[60vw] rounded-2xl shadow-2xl p-8">
           {activeTab === "upload" && (
             <div className="text-center">
               <div className="border-4 border-dashed border-gray-300 rounded-xl p-12 mb-6">
@@ -135,20 +122,36 @@ export default function RedactionDashboard() {
                     type="file"
                     onChange={handleFileUpload}
                     className="hidden"
-                    accept=".txt,.pdf,.docx,.jpg,.png,.mp3,.mp4"
-                    disabled={processing}
+                    accept=".pdf,.docx,.jpg,.png,.mp3,.mp4"
                   />
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className={`px-8 py-3 rounded-lg font-medium transition-colors ${
-                      processing
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-700 text-white"
-                    }`}
+                    className="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
                     disabled={processing}
                   >
                     {processing ? "Processing..." : "Choose File"}
                   </button>
+                  {message && (
+  <div className="mt-4 text-center">
+    <p
+      className={`text-sm mb-2 ${
+        message.startsWith("✅") ? "text-green-600" : "text-red-600"
+      }`}
+    >
+      {message}
+    </p>
+    {downloadUrl && (
+      <a
+        href={downloadUrl}
+        download
+        className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors"
+      >
+        Download Redacted PDF
+      </a>
+    )}
+  </div>
+)}
+
                 </div>
               </div>
             </div>
