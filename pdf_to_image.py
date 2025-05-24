@@ -3,10 +3,10 @@
 import os
 from pdf2image import convert_from_path
 
-# === Config ===
+
 PDF_DIR = "data/newpdfs"
 OUTPUT_DIR = "data/newimages"
-DPI = 300  # Higher DPI = better image quality for OCR/YOLO
+DPI = 300
 
 def convert_pdf_to_images(pdf_path, output_dir, dpi=300):
     filename = os.path.splitext(os.path.basename(pdf_path))[0]

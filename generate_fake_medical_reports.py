@@ -7,7 +7,7 @@ from reportlab.pdfgen import canvas
 from pathlib import Path
 
 OUTPUT_DIR = "data/newpdfs"
-NUM_PDFS = 200
+NUM_PDFS = 3
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 fake = Faker()

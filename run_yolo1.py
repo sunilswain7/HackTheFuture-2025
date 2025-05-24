@@ -8,7 +8,7 @@ MODEL_PATH = "data/dataset/runs/detect/train/weights/best.pt"
 def pdf_to_images(pdf_path):
     return convert_from_path(pdf_path)
 
-def detect_sensitive_areas(image, model, conf_threshold=0.05):
+def detect_sensitive_areas(image, model, conf_threshold=0.15):
     results = model.predict(np.array(image), conf=conf_threshold)
     boxes = []
     for box in results[0].boxes:
@@ -41,6 +41,6 @@ def redact_pdf(input_pdf_path, output_pdf_path):
     print(f"Redacted PDF saved to: {output_pdf_path}")
 
 if __name__ == "__main__":
-    input_pdf = "data/test1.pdf"
-    output_pdf = "data/output_pdfs/redacted_output1.pdf"
+    input_pdf = "data/test7.pdf"
+    output_pdf = "data/output_pdfs/redacted_output7.pdf"
     redact_pdf(input_pdf, output_pdf)
